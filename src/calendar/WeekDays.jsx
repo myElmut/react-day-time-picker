@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const WEEK_DAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+export const WEEK_DAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
 export const WeekDays = styled.ul`
   display: grid;
