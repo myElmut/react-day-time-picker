@@ -46,11 +46,11 @@ const fakeNext = keyframes`
 
 const ANIM_TIME_SEC = 0.2;
 const ANIM_DELAY_TIME_SEC = 0.1;
-const makeAnimation = type => css`
+const makeAnimation = (type) => css`
   ${type} ${ANIM_TIME_SEC}s ease-out ${ANIM_DELAY_TIME_SEC}s normal both;
 `;
 
-const animation = props => {
+const animation = (props) => {
   const { animation } = props;
 
   if (animation === 'prev') {
@@ -62,7 +62,7 @@ const animation = props => {
   }
 };
 
-const fakeAnimation = props => {
+const fakeAnimation = (props) => {
   const { animation } = props;
 
   if (animation === 'prev') {
@@ -88,7 +88,7 @@ const Button = styled.button`
   border-radius: 50%;
   border: 0;
   color: inherit;
-  background-color: ${props => props.theme.secondary};
+  background-color: ${(props) => props.theme.secondary};
   box-sizing: border-box;
   outline: 0;
   transition: all 0.25s ease;
@@ -99,7 +99,7 @@ const Button = styled.button`
 
   :hover {
     cursor: pointer;
-    color: ${props => props.theme.primary};
+    color: ${(props) => props.theme.primary};
   }
 `;
 
@@ -118,5 +118,5 @@ export const CurrentMonth = styled.div`
 export const FakeCurrentMonth = styled.div`
   font-weight: 500;
   animation: ${fakeAnimation};
-  visibility: ${props => (props.animation ? 'visible' : 'hidden')};
+  visibility: ${(props) => (props.animation ? 'visible' : 'hidden')};
 `;

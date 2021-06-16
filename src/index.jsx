@@ -5,9 +5,13 @@ import de from 'date-fns/locale/de';
 
 import { ThemeProvider } from 'styled-components';
 
-import { PopupWrapper, Popup, PopupHeader, PopupClose } from './Popup';
+import {
+  PopupWrapper, Popup, PopupHeader, PopupClose,
+} from './Popup';
 import { ConfirmButton } from './Confirm';
-import { DayIcon, ClockIcon, SuccessIcon, FailedIcon } from './Icons';
+import {
+  DayIcon, ClockIcon, SuccessIcon, FailedIcon,
+} from './Icons';
 import { Success, Failed } from './Feedback';
 
 import Calendar from './calendar';
@@ -25,19 +29,19 @@ function DayTimePicker({
   confirmText,
   loadingText,
   doneText,
-  theme
+  theme,
 }) {
   const [pickedDay, setPickedDay] = useState(null);
   const [pickedTime, setPickedTime] = useState(null);
   const [showPickTime, setShowPickTime] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handlePickDay = day => {
+  const handlePickDay = (day) => {
     setPickedDay(day);
     setShowPickTime(true);
   };
 
-  const handlePickTime = time => {
+  const handlePickTime = (time) => {
     setPickedTime(time);
     setShowPickTime(false);
     setShowConfirm(true);
@@ -65,10 +69,9 @@ function DayTimePicker({
           <Popup>
             <PopupHeader>
               <p>
-                <DayIcon />{' '}
-                {dateFns.format(pickedDay, 'dddd, Do MMMM YYYY', {
-                  locale: de
-                })}
+                <DayIcon />
+                {' '}
+                {dateFns.format(pickedDay, 'dddd, Do MMMM YYYY', { locale: de })}
               </p>
               <p>
                 <PopupClose onClick={handleClosePickTime}>Zurück</PopupClose>
@@ -88,14 +91,15 @@ function DayTimePicker({
           <Popup>
             <PopupHeader>
               <p>
-                <DayIcon />{' '}
-                {dateFns.format(pickedTime, 'dddd, Do MMMM YYYY', {
-                  locale: de
-                })}
+                <DayIcon />
+                {' '}
+                {dateFns.format(pickedTime, 'dddd, Do MMMM YYYY', { locale: de })}
               </p>
 
               <p>
-                <ClockIcon /> {dateFns.format(pickedTime, 'HH:mm')}
+                <ClockIcon />
+                {' '}
+                {dateFns.format(pickedTime, 'HH:mm')}
               </p>
 
               {!isDone && (
@@ -114,7 +118,9 @@ function DayTimePicker({
             ) : doneText ? (
               <Success>
                 <p>
-                  <SuccessIcon /> {doneText}
+                  <SuccessIcon />
+                  {' '}
+                  {doneText}
                 </p>
               </Success>
             ) : null}
@@ -122,7 +128,9 @@ function DayTimePicker({
             {err && (
               <Failed>
                 <p>
-                  <FailedIcon /> {err}
+                  <FailedIcon />
+                  {' '}
+                  {err}
                 </p>
               </Failed>
             )}
@@ -150,18 +158,18 @@ DayTimePicker.propTypes = {
     buttons: PropTypes.shape({
       disabled: PropTypes.shape({
         color: PropTypes.string,
-        background: PropTypes.string
+        background: PropTypes.string,
       }),
       confirm: PropTypes.shape({
         color: PropTypes.string,
         background: PropTypes.string,
         hover: PropTypes.shape({
           color: PropTypes.string,
-          background: PropTypes.string
-        })
-      })
-    })
-  })
+          background: PropTypes.string,
+        }),
+      }),
+    }),
+  }),
 };
 
 DayTimePicker.defaultProps = {
@@ -175,26 +183,26 @@ DayTimePicker.defaultProps = {
     buttons: {
       disabled: {
         color: '#333',
-        background: '#dfdfdf'
+        background: '#dfdfdf',
       },
       confirm: {
         color: '#fff',
         background: '#3a9ad9',
         hover: {
           color: '',
-          background: '#3a9ad9d6'
-        }
-      }
+          background: '#3a9ad9d6',
+        },
+      },
     },
     feedback: {
       success: {
-        color: '#29aba4'
+        color: '#29aba4',
       },
       failed: {
-        color: '#eb7260'
-      }
-    }
-  }
+        color: '#eb7260',
+      },
+    },
+  },
 };
 
 export default DayTimePicker;

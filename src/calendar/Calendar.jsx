@@ -37,11 +37,11 @@ const fakeNext = keyframes`
 `;
 
 const ANIM_TIME_SEC = 0.4;
-const makeAnimation = type => css`
+const makeAnimation = (type) => css`
   ${type} ${ANIM_TIME_SEC}s ease-in-out normal both;
 `;
 
-const animation = props => {
+const animation = (props) => {
   const { animation } = props;
 
   if (animation === 'prev') {
@@ -53,7 +53,7 @@ const animation = props => {
   }
 };
 
-const fakeAnimation = props => {
+const fakeAnimation = (props) => {
   const { animation } = props;
 
   if (animation === 'prev') {
@@ -76,6 +76,6 @@ export const Calendar = styled.div`
 
 export const FakeCalendar = styled.div`
   animation: ${fakeAnimation};
-  opacity: ${props => (props.animation ? 1 : 0)};
+  opacity: ${(props) => (props.animation ? 1 : 0)};
   z-index: 0;
 `;

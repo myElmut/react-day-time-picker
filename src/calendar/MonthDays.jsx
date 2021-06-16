@@ -20,12 +20,12 @@ export const MonthDay = styled.li`
   padding: 1em 0;
   border-radius: 50%;
   transition: all 0.25s ease;
-  font-weight: ${props => (props.isToday ? 'bold' : 'inherit')};
-  color: ${props => (props.isToday ? props.theme.primary : 'inherit')};
-  opacity: ${props => (props.isValid ? 1 : 0.3)};
+  font-weight: ${(props) => (props.isToday ? 'bold' : 'inherit')};
+  color: ${(props) => (props.isToday ? props.theme.primary : 'inherit')};
+  opacity: ${(props) => (props.isValid ? 1 : 0.3)};
 
   :hover {
-    cursor: ${props => (props.isValid ? 'pointer' : 'inherit')};
-    color: ${props => (props.isValid ? props.theme.primary : 'inherit')};
+    cursor: ${(props) => (props.isValid ? 'pointer' : 'inherit')};
+    color: ${(props) => (props.isValid ? props.theme.primary : 'inherit')};
   }
 `;

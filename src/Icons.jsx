@@ -9,11 +9,11 @@ import {
   faCalendarDay,
   faClock,
   faCheckCircle,
-  faExclamationCircle
+  faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 const propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export const PrevIcon = ({ className }) => (

@@ -10,19 +10,19 @@ export const ConfirmButton = styled.button`
   outline: 0;
   transition: all 0.25s ease;
   min-width: 150px;
-  color: ${props => props.theme.buttons.confirm.color};
-  background-color: ${props => props.theme.buttons.confirm.background};
+  color: ${(props) => props.theme.buttons.confirm.color};
+  background-color: ${(props) => props.theme.buttons.confirm.background};
 
   :hover {
     cursor: pointer;
-    color: ${props => props.theme.buttons.confirm.hover.color};
-    background-color: ${props => props.theme.buttons.confirm.hover.background};
+    color: ${(props) => props.theme.buttons.confirm.hover.color};
+    background-color: ${(props) => props.theme.buttons.confirm.hover.background};
   }
 
   :disabled {
     cursor: not-allowed;
-    color: ${props => props.theme.buttons.disabled.color};
-    background-color: ${props => props.theme.buttons.disabled.background};
+    color: ${(props) => props.theme.buttons.disabled.color};
+    background-color: ${(props) => props.theme.buttons.disabled.background};
   }
 
   @media (max-width: 450px) {

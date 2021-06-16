@@ -6,9 +6,9 @@ const Container = styled.div`
 `;
 
 export const Success = styled(Container)`
-  color: ${props => props.theme.feedback.success.color};
+  color: ${(props) => props.theme.feedback.success.color};
 `;
 
 export const Failed = styled(Container)`
-  color: ${props => props.theme.feedback.failed.color};
+  color: ${(props) => props.theme.feedback.failed.color};
 `;
