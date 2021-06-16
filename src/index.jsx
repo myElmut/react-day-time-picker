@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
-import { de } from 'date-fns/locale';
+import de from 'date-fns/locale/de';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -65,7 +65,10 @@ function DayTimePicker({
           <Popup>
             <PopupHeader>
               <p>
-                <DayIcon /> {dateFns.format(pickedDay, 'PPPP', { locale: de })}
+                <DayIcon />{' '}
+                {dateFns.format(pickedDay, 'dddd, Do MMMM YYYY', {
+                  locale: de
+                })}
               </p>
               <p>
                 <PopupClose onClick={handleClosePickTime}>Zurück</PopupClose>
@@ -85,7 +88,10 @@ function DayTimePicker({
           <Popup>
             <PopupHeader>
               <p>
-                <DayIcon /> {dateFns.format(pickedTime, 'dddd, MMMM Do, YYYY')}
+                <DayIcon />{' '}
+                {dateFns.format(pickedTime, 'dddd, Do MMMM YYYY', {
+                  locale: de
+                })}
               </p>
 
               <p>

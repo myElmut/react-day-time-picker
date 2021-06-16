@@ -37,7 +37,7 @@ const fakeNext = keyframes`
 `;
 
 const ANIM_TIME_SEC = 0.4;
-const _makeAnimation = type => css`
+const makeAnimation = type => css`
   ${type} ${ANIM_TIME_SEC}s ease-in-out normal both;
 `;
 
@@ -45,11 +45,11 @@ const animation = props => {
   const { animation } = props;
 
   if (animation === 'prev') {
-    return _makeAnimation(prev);
+    return makeAnimation(prev);
   }
 
   if (animation === 'next') {
-    return _makeAnimation(next);
+    return makeAnimation(next);
   }
 };
 
@@ -57,11 +57,11 @@ const fakeAnimation = props => {
   const { animation } = props;
 
   if (animation === 'prev') {
-    return _makeAnimation(fakePrev);
+    return makeAnimation(fakePrev);
   }
 
   if (animation === 'next') {
-    return _makeAnimation(fakeNext);
+    return makeAnimation(fakeNext);
   }
 };
 

@@ -8,13 +8,17 @@ function generateTimeSlots(selectedDate, slotSizeMinutes) {
     const now = new Date();
     const offsetHours = dateFns.getHours(now);
 
-    // "Pad" the start time with the amount of hours of the current time, to
-    // prevent rendering time slots of the past
+    /*
+     * "Pad" the start time with the amount of hours of the current time, to
+     * prevent rendering time slots of the past
+     */
     start = dateFns.addHours(start, offsetHours);
 
-    // The start positions might still be in the past in terms of minutes
-    // So "pad" the start time with the slot size, to prevent rendering time
-    // slots of the past
+    /*
+     * The start positions might still be in the past in terms of minutes
+     * So "pad" the start time with the slot size, to prevent rendering time
+     * slots of the past
+     */
     while (start <= now) {
       start = dateFns.addMinutes(start, slotSizeMinutes);
     }

@@ -46,7 +46,7 @@ const fakeNext = keyframes`
 
 const ANIM_TIME_SEC = 0.2;
 const ANIM_DELAY_TIME_SEC = 0.1;
-const _makeAnimation = type => css`
+const makeAnimation = type => css`
   ${type} ${ANIM_TIME_SEC}s ease-out ${ANIM_DELAY_TIME_SEC}s normal both;
 `;
 
@@ -54,11 +54,11 @@ const animation = props => {
   const { animation } = props;
 
   if (animation === 'prev') {
-    return _makeAnimation(prev);
+    return makeAnimation(prev);
   }
 
   if (animation === 'next') {
-    return _makeAnimation(next);
+    return makeAnimation(next);
   }
 };
 
@@ -66,11 +66,11 @@ const fakeAnimation = props => {
   const { animation } = props;
 
   if (animation === 'prev') {
-    return _makeAnimation(fakePrev);
+    return makeAnimation(fakePrev);
   }
 
   if (animation === 'next') {
-    return _makeAnimation(fakeNext);
+    return makeAnimation(fakeNext);
   }
 };
 

@@ -1,11 +1,18 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
-import { de } from 'date-fns/locale';
+import de from 'date-fns/locale/de';
 
 import { PrevIcon, NextIcon } from '../Icons';
 
-import { Grid, Wrapper, MonthYear, DaysOfWeek, DaysOfMonth } from './Layout';
+import {
+  Grid,
+  Wrapper,
+  MonthYear,
+  DaysOfWeek,
+  DaysOfMonth,
+ } from './Layout';
 import { WeekDays, WeekDay, WEEK_DAYS } from './WeekDays';
 import { MonthDays, MonthDay } from './MonthDays';
 
@@ -14,7 +21,7 @@ import {
   PrevMonth,
   NextMonth,
   CurrentMonth,
-  FakeCurrentMonth
+  FakeCurrentMonth,
 } from './MonthPicker';
 
 import { Calendar, FakeCalendar } from './Calendar';
@@ -53,8 +60,7 @@ function Root({ validator, pickDay }) {
   };
 
   const handleAnimationEnd = () => {
-    const newFakeMonth =
-      animation === 'prev'
+    const newFakeMonth = animation === 'prev'
         ? dateFns.subMonths(fakeMonth, 1)
         : dateFns.addMonths(fakeMonth, 1);
 
@@ -62,7 +68,7 @@ function Root({ validator, pickDay }) {
     setAnimation('');
   };
 
-  const handlePickDay = day => {
+  const handlePickDay = (day) => {
     if (isAnimating) {
       return;
     }
@@ -98,14 +104,12 @@ function Root({ validator, pickDay }) {
         <Calendar animation={animation} onAnimationEnd={handleAnimationEnd}>
           <DaysOfWeek>
             <WeekDays>
-              {WEEK_DAYS.map(weekDay => {
-                return <WeekDay key={weekDay}>{weekDay}</WeekDay>;
-              })}
+              { WEEK_DAYS.map((weekDay) => {return <WeekDay key={weekDay}>{weekDay}</WeekDay>; })}
             </WeekDays>
           </DaysOfWeek>
 
           <MonthDays>
-            {days.map(day => {
+            {days.map((day) => {
               const isSameMonth = dateFns.isSameMonth(day, startDay);
               if (!isSameMonth) {
                 return <MonthDay key={day} />;
@@ -131,15 +135,13 @@ function Root({ validator, pickDay }) {
         <FakeCalendar animation={animation}>
           <DaysOfWeek>
             <WeekDays>
-              {WEEK_DAYS.map(weekDay => {
-                return <WeekDay key={weekDay}>{weekDay}</WeekDay>;
-              })}
+              {WEEK_DAYS.map((weekDay) => { return <WeekDay key={weekDay}>{weekDay}</WeekDay>; })}
             </WeekDays>
           </DaysOfWeek>
 
           <DaysOfMonth>
             <MonthDays>
-              {fakeDays.map(fakeDay => {
+              {fakeDays.map((fakeDay) => {
                 const isSameMonth = dateFns.isSameMonth(fakeDay, fakeStartDay);
                 if (!isSameMonth) {
                   return <MonthDay key={fakeDay} />;
@@ -169,7 +171,7 @@ function Root({ validator, pickDay }) {
 
 Root.propTypes = {
   validator: PropTypes.func,
-  pickDay: PropTypes.func.isRequired
+  pickDay: PropTypes.func.isRequired,
 };
 
 export default Root;
