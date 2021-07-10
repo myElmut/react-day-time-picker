@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
-import de from 'date-fns/locale/de';
+import fr from 'date-fns/locale/fr';
 
 import { PrevIcon, NextIcon } from '../Icons';
 
@@ -86,11 +86,11 @@ function Root({ validator, pickDay }) {
 
           <Wrapper>
             <CurrentMonth animation={animation}>
-              {dateFns.format(month, 'MMMM YYYY', { locale: de })}
+              {dateFns.format(month, 'MMMM YYYY', { locale: fr })}
             </CurrentMonth>
 
             <FakeCurrentMonth animation={animation}>
-              {dateFns.format(fakeMonth, 'MMMM YYYY', { locale: de })}
+              {dateFns.format(fakeMonth, 'MMMM YYYY', { locale: fr })}
             </FakeCurrentMonth>
           </Wrapper>
 
