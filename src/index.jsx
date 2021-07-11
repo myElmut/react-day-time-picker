@@ -6,7 +6,13 @@ import fr from 'date-fns/locale/fr';
 
 import { ThemeProvider } from 'styled-components';
 
-import { PopupWrapper, Popup, PopupHeader, PopupClose } from './Popup';
+import {
+  PopupWrapper,
+  Popup,
+  PopupHeader,
+  PopupClose,
+  PopupDone
+} from './Popup';
 import { ConfirmButton } from './Confirm';
 import { DayIcon, ClockIcon, SuccessIcon, FailedIcon } from './Icons';
 import { Success, Failed } from './Feedback';
@@ -85,7 +91,7 @@ function DayTimePicker({
         )}
 
         {showConfirm && (
-          <Popup>
+          <PopupDone>
             <PopupHeader>
               <p style={{ fontSize: '20px' }}>
                 <DayIcon />{' '}
@@ -96,6 +102,11 @@ function DayTimePicker({
 
               <p style={{ fontSize: '24px' }}>
                 <ClockIcon /> {dateFns.format(pickedTime, 'HH:mm')}
+                {' - '}
+                {dateFns.format(
+                  dateFns.addMinutes(pickedTime, timeSlotSizeMinutes),
+                  'HH:mm'
+                )}
               </p>
 
               {!isDone ? (
@@ -119,7 +130,7 @@ function DayTimePicker({
                 </Success>
               ) : null}
             </PopupHeader>
-          </Popup>
+          </PopupDone>
         )}
       </PopupWrapper>
     </ThemeProvider>

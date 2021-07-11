@@ -99,7 +99,7 @@ const Button = styled.button`
 
   :hover {
     cursor: pointer;
-    color: ${props => props.theme.primary};
+    color: ${props => props.theme.secondary};
   }
 `;
 

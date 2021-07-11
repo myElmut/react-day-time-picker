@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
@@ -19,7 +20,8 @@ function Root({ pickedDay, slotSizeMinutes, validator, pickTime }) {
             isValid={isValid}
             onClick={() => isValid && pickTime(slot)}
           >
-            {dateFns.format(slot, 'HH:mm')}
+            {dateFns.format(slot, 'HH:mm')} {' - '}
+            {dateFns.format(dateFns.addMinutes(slot, slotSizeMinutes), 'HH:mm')}
           </ListItem>
         );
       })}
