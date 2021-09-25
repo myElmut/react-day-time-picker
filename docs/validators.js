@@ -7,6 +7,9 @@
  * @return {Boolan} If the time slot is valid or not.
  */
 export function timeSlotValidator(slotTime) {
+    if (!slotTime) {
+        return false;
+    }
   const eveningTime = new Date(
     slotTime.getFullYear(),
     slotTime.getMonth(),
