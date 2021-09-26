@@ -7,21 +7,37 @@ import generateTimeSlots from './generate-time-slots';
 
 import { List, ListItem } from './List';
 
-function Root({ pickedDay, slotSizeMinutes, validator, pickTime }) {
-  const timeSlots = generateTimeSlots(pickedDay, slotSizeMinutes);
+function Root({ pickedDay, slotSizeMinutes, validator, pickTime, slots }) {
+  const timeSlots =
+    slots && slots.length > 0
+      ? slots
+      : generateTimeSlots(pickedDay, slotSizeMinutes);
 
   return (
     <List>
       {timeSlots.map(slot => {
-        const isValid = validator ? validator(slot) : true;
+        const isValid = validator && slots.length == 0 ? validator(slot.deliveryDate) : true;
         return (
           <ListItem
-            key={slot}
+            key={slot.slotCode ? slot.slotCode : slot.deliveryDate}
             isValid={isValid}
             onClick={() => isValid && pickTime(slot)}
           >
-            {dateFns.format(slot, 'HH:mm')} {' - '}
-            {dateFns.format(dateFns.addMinutes(slot, slotSizeMinutes), 'HH:mm')}
+            {slots && slots.length > 0 ? (
+              <>
+                <span>
+                  {`${slot.startHour}:00`} {' - '}
+                </span>
+                <span>{`${slot.endHour}:00`}</span>
+              </>
+            ) : (
+              <>
+                <span>
+                  {`${slot.startHour}`} {' - '}
+                </span>
+                <span>{`${slot.endHour}`}</span>
+              </>
+            )}
           </ListItem>
         );
       })}
@@ -33,7 +49,8 @@ Root.propTypes = {
   pickedDay: PropTypes.instanceOf(Date),
   slotSizeMinutes: PropTypes.number.isRequired,
   validator: PropTypes.func,
-  pickTime: PropTypes.func.isRequired
+  pickTime: PropTypes.func.isRequired,
+  slots: PropTypes.array
 };
 
 export default Root;

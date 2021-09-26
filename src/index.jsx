@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import dateFns from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import fr from 'date-fns/locale/fr';
 
 import { ThemeProvider } from 'styled-components';
@@ -29,30 +29,47 @@ function DayTimePicker({
   isLoading,
   isDone,
   onConfirm,
+  slots,
   onReset,
   doneText,
   theme
 }) {
   const [pickedDay, setPickedDay] = useState(null);
-  const [pickedTime, setPickedTime] = useState(value);
+  const [pickedTime, setPickedTime] = useState({});
   const [showPickTime, setShowPickTime] = useState(false);
+  const [daySlots, setDaySlots] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
 
-
-  useEffect( () => {
-
+  useEffect(() => {
     if (value) {
-        handlePickTime(value)
+      //   /debugger
+      handlePickTime(value);
     }
   }, []);
 
   const handlePickDay = day => {
+    prepareDaySlots(day, slots);
     setPickedDay(day);
     setShowPickTime(true);
   };
 
+  const prepareDaySlots = (day, slots) => {
+    if (slots) {
+      const filterSlots = slots.filter(function(slot) {
+        return new Date(slot.deliveryDate).getDate() === day.getDate();
+      });
+      filterSlots.sort(
+        (firstDate, secondDate) => +firstDate.startHour - +secondDate.startHour
+      );
+      setDaySlots(filterSlots);
+    }
+  };
+
   const handlePickTime = time => {
     setPickedTime(time);
+    if (!pickedDay) {
+      setPickedDay(new Date(time.deliveryDate));
+    }
     setShowPickTime(false);
     setShowConfirm(true);
     handleConfirm(time);
@@ -60,42 +77,45 @@ function DayTimePicker({
 
   const handleClosePickTime = () => {
     setShowPickTime(false);
-    onReset()
+    if (onReset) {
+      onReset();
+    }
   };
 
-  const handleConfirm = (pickedTime) => {
-    onConfirm(pickedTime);
+  const handleConfirm = pickedTime => {
+    if (onConfirm) {
+      onConfirm(pickedTime);
+    }
   };
 
-  const capitalizeFirstLetter = (string) => {
+  const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
 
   const handleCloseConfirm = () => {
     setShowConfirm(false);
-    console.log('pickedTime', pickedTime)
-    if (timeSlotValidator(new Date(pickedTime))){
-        setShowPickTime(true);
-        onReset();
-    }
-    else {
-        handleClosePickTime()
-    }
+    handleClosePickTime();
+
   };
 
   return (
     <ThemeProvider theme={theme}>
       <PopupWrapper>
-        <Calendar validator={preventPastDays} pickDay={handlePickDay} />
+        <Calendar
+          slots={slots}
+          validator={preventPastDays}
+          pickDay={handlePickDay}
+        />
 
         {showPickTime && (
           <Popup>
             <PopupHeader>
               <p style={{ fontSize: '20px' }}>
                 <DayIcon />{' '}
-                {dateFns.format(pickedDay, 'dddd, Do MMMM YYYY', {
+                {format(pickedDay, 'dd MMMM yyyy', {
                   locale: fr
                 })}
+                {/* {pickedDay} */}
               </p>
               <p>
                 <PopupClose onClick={handleClosePickTime}>Retour</PopupClose>
@@ -105,6 +125,7 @@ function DayTimePicker({
             <TimeSlots
               pickedDay={pickedDay}
               slotSizeMinutes={timeSlotSizeMinutes}
+              slots={daySlots}
               validator={timeSlotValidator}
               pickTime={handlePickTime}
             />
@@ -116,27 +137,27 @@ function DayTimePicker({
             <PopupHeader>
               <p style={{ fontSize: '20px' }}>
                 <DayIcon />{' '}
-                {dateFns.format(pickedTime, 'dddd Do MMMM YYYY', {
+                {format(parseISO(pickedTime.deliveryDate), 'dd MMMM yyyy', {
                   locale: fr
                 })}
               </p>
 
               <p style={{ fontSize: '24px' }}>
-                <ClockIcon /> {dateFns.format(pickedTime, 'HH:mm')}
-                {' - '}
-                {dateFns.format(
-                  dateFns.addMinutes(pickedTime, timeSlotSizeMinutes),
-                  'HH:mm'
-                )}
+                <ClockIcon />{' '}
+                {pickedTime.slotCode
+                  ? `${pickedTime.startHour}:00 - ${pickedTime.endHour}:00`
+                  : `${pickedTime.startHour} - ${pickedTime.endHour}`}
               </p>
 
-              {!isDone ? (
+              {!isDone && pickedDay ? (
                 <Success>
                   <p>
                     <span style={{ fontWeight: 'bold' }}>
-                      {capitalizeFirstLetter(dateFns.format(pickedDay, 'dddd', {
-                        locale: fr
-                      }))}
+                      {capitalizeFirstLetter(
+                        format(pickedDay, 'EEEE', {
+                          locale: fr
+                        })
+                      )}
                     </span>{' '}
                     {doneText}
                   </p>
@@ -165,8 +186,17 @@ DayTimePicker.propTypes = {
   isDone: PropTypes.bool,
   err: PropTypes.string,
   onConfirm: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.shape({
+    deliveryDate: PropTypes.string,
+    endHour: PropTypes.string,
+    rank: PropTypes.string,
+    slotCode: PropTypes.string,
+    slotStatus: PropTypes.string,
+    startHour: PropTypes.string,
+    tariffLevel: PropTypes.string
+  }),
   onReset: PropTypes.func,
+  slots: PropTypes.array,
   doneText: PropTypes.string,
   theme: PropTypes.shape({
     primary: PropTypes.string,
@@ -192,7 +222,6 @@ DayTimePicker.propTypes = {
 DayTimePicker.defaultProps = {
   confirmText: 'Confirmer',
   loadingText: 'En cours..',
-  value: '',
   doneText:
     'sera votre jour de livraison habituel. Vous pouvez le modifier maintenant ou à tout moment après votre commande',
   theme: {

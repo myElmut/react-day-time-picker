@@ -1,7 +1,13 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import dateFns from 'date-fns';
+import {
+    addMonths,
+    subMonths,
+    isSameMonth,
+    format,
+    isToday,
+} from 'date-fns';
 import fr from 'date-fns/locale/fr';
 
 import { PrevIcon, NextIcon } from '../Icons';
@@ -28,7 +34,7 @@ import { Calendar, FakeCalendar } from './Calendar';
 
 import generateDays from './generate-days';
 
-function Root({ validator, pickDay }) {
+function Root({ slots, validator, pickDay }) {
   const [month, setMonth] = useState(new Date());
   const [fakeMonth, setFakeMonth] = useState(month);
   const [animation, setAnimation] = useState('');
@@ -44,7 +50,7 @@ function Root({ validator, pickDay }) {
       return;
     }
 
-    const next = dateFns.addMonths(month, 1);
+    const next = addMonths(month, 1);
     setMonth(next);
     setAnimation('next');
   };
@@ -54,15 +60,15 @@ function Root({ validator, pickDay }) {
       return;
     }
 
-    const prev = dateFns.subMonths(month, 1);
+    const prev = subMonths(month, 1);
     setMonth(prev);
     setAnimation('prev');
   };
 
   const handleAnimationEnd = () => {
     const newFakeMonth = animation === 'prev'
-        ? dateFns.subMonths(fakeMonth, 1)
-        : dateFns.addMonths(fakeMonth, 1);
+        ? subMonths(fakeMonth, 1)
+        : addMonths(fakeMonth, 1);
 
     setFakeMonth(newFakeMonth);
     setAnimation('');
@@ -86,11 +92,11 @@ function Root({ validator, pickDay }) {
 
           <Wrapper>
             <CurrentMonth animation={animation}>
-              {dateFns.format(month, 'MMMM YYYY', { locale: fr })}
+              {format(month, 'MMMM yyyy', { locale: fr })}
             </CurrentMonth>
 
             <FakeCurrentMonth animation={animation}>
-              {dateFns.format(fakeMonth, 'MMMM YYYY', { locale: fr })}
+              {format(fakeMonth, 'MMMM yyyy', { locale: fr })}
             </FakeCurrentMonth>
           </Wrapper>
 
@@ -110,19 +116,19 @@ function Root({ validator, pickDay }) {
 
           <MonthDays>
             {days.map((day) => {
-              const isSameMonth = dateFns.isSameMonth(day, startDay);
-              if (!isSameMonth) {
+              const sameMonth = isSameMonth(day, startDay);
+              if (!sameMonth) {
                 return <MonthDay key={day} />;
               }
 
-              const formatted = dateFns.format(day, 'D');
-              const isToday = dateFns.isToday(day);
-              const isValid = validator ? validator(day) : true;
+              const formatted = format(day, 'd');
+              const today = isToday(day);
+              const isValid = validator ? validator(slots, day) : true;
               return (
                 <MonthDay
                   key={day}
                   isValid={isValid}
-                  isToday={isToday}
+                  isToday={today}
                   onClick={() => isValid && handlePickDay(day)}
                 >
                   {formatted}
@@ -142,20 +148,20 @@ function Root({ validator, pickDay }) {
           <DaysOfMonth>
             <MonthDays>
               {fakeDays.map((fakeDay) => {
-                const isSameMonth = dateFns.isSameMonth(fakeDay, fakeStartDay);
-                if (!isSameMonth) {
+                const sameMonth = isSameMonth(fakeDay, fakeStartDay);
+                if (!sameMonth) {
                   return <MonthDay key={fakeDay} />;
                 }
 
-                const formatted = dateFns.format(fakeDay, 'D');
-                const isToday = dateFns.isToday(fakeDay);
-                const isValid = validator ? validator(fakeDay) : true;
+                const formatted = format(fakeDay, 'd');
+                const today = isToday(fakeDay);
+                const isValid = validator ? validator(slots, fakeDay) : true;
                 return (
                   <MonthDay
                     key={fakeDay}
-                    disabled={!isSameMonth}
+                    disabled={!sameMonth}
                     isValid={isValid}
-                    isToday={isToday}
+                    isToday={today}
                   >
                     {formatted}
                   </MonthDay>
@@ -172,6 +178,7 @@ function Root({ validator, pickDay }) {
 Root.propTypes = {
   validator: PropTypes.func,
   pickDay: PropTypes.func.isRequired,
+  slots: PropTypes.array
 };
 
 export default Root;

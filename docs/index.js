@@ -39,6 +39,504 @@ function App() {
   const [isScheduled, setIsScheduled] = useState(false);
   const [scheduleErr, setScheduleErr] = useState('');
 
+  const slots = [
+    {
+      slotCode: '6212',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-25T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '1',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4212',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '35',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4213',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '20',
+      endHour: '22',
+      rank: '36',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4202',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '9',
+      endHour: '11',
+      rank: '37',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '4203',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '10',
+      endHour: '12',
+      rank: '38',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4204',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '11',
+      endHour: '13',
+      rank: '39',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4205',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '12',
+      endHour: '14',
+      rank: '40',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '4206',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '13',
+      endHour: '15',
+      rank: '41',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4207',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '14',
+      endHour: '16',
+      rank: '42',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4208',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '15',
+      endHour: '17',
+      rank: '43',
+      tariffLevel: 'N4'
+    },
+    {
+      slotCode: '4209',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '16',
+      endHour: '18',
+      rank: '44',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '4211',
+      slotStatus: 'O',
+      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      startHour: '18',
+      endHour: '20',
+      rank: '45',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5212',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '46',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5213',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '20',
+      endHour: '22',
+      rank: '47',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5202',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '9',
+      endHour: '11',
+      rank: '48',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '5203',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '10',
+      endHour: '12',
+      rank: '49',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5204',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '11',
+      endHour: '13',
+      rank: '50',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5205',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '12',
+      endHour: '14',
+      rank: '51',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '5206',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '13',
+      endHour: '15',
+      rank: '52',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5207',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '14',
+      endHour: '16',
+      rank: '53',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '5208',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '15',
+      endHour: '17',
+      rank: '54',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5209',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '16',
+      endHour: '18',
+      rank: '55',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '5211',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      startHour: '18',
+      endHour: '20',
+      rank: '56',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6206',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '13',
+      endHour: '15',
+      rank: '57',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6207',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '14',
+      endHour: '16',
+      rank: '58',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '6208',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '15',
+      endHour: '17',
+      rank: '59',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '6209',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '16',
+      endHour: '18',
+      rank: '60',
+      tariffLevel: 'N4'
+    },
+    {
+      slotCode: '6211',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '18',
+      endHour: '20',
+      rank: '61',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6212',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '62',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6202',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '9',
+      endHour: '11',
+      rank: '63',
+      tariffLevel: 'N4'
+    },
+    {
+      slotCode: '6203',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '10',
+      endHour: '12',
+      rank: '64',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6204',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '11',
+      endHour: '13',
+      rank: '65',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '6205',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      startHour: '12',
+      endHour: '14',
+      rank: '66',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '4212',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '100',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4213',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '20',
+      endHour: '22',
+      rank: '101',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4202',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '9',
+      endHour: '11',
+      rank: '102',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '4203',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '10',
+      endHour: '12',
+      rank: '103',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4204',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '11',
+      endHour: '13',
+      rank: '104',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4205',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '12',
+      endHour: '14',
+      rank: '105',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '4206',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '13',
+      endHour: '15',
+      rank: '106',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4207',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '14',
+      endHour: '16',
+      rank: '107',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '4208',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '15',
+      endHour: '17',
+      rank: '108',
+      tariffLevel: 'N4'
+    },
+    {
+      slotCode: '4209',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '16',
+      endHour: '18',
+      rank: '109',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '4211',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-07T18:00:00.000+02:00',
+      startHour: '18',
+      endHour: '20',
+      rank: '110',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5212',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '19',
+      endHour: '21',
+      rank: '111',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5213',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '20',
+      endHour: '22',
+      rank: '112',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5202',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '9',
+      endHour: '11',
+      rank: '113',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '5203',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '10',
+      endHour: '12',
+      rank: '114',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5204',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '11',
+      endHour: '13',
+      rank: '115',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5205',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '12',
+      endHour: '14',
+      rank: '116',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '5206',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '13',
+      endHour: '15',
+      rank: '117',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5207',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '14',
+      endHour: '16',
+      rank: '118',
+      tariffLevel: 'N2'
+    },
+    {
+      slotCode: '5208',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '15',
+      endHour: '17',
+      rank: '119',
+      tariffLevel: 'N1'
+    },
+    {
+      slotCode: '5209',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '16',
+      endHour: '18',
+      rank: '120',
+      tariffLevel: 'N3'
+    },
+    {
+      slotCode: '5211',
+      slotStatus: 'O',
+      deliveryDate: '2021-10-08T18:00:00.000+02:00',
+      startHour: '18',
+      endHour: '20',
+      rank: '121',
+      tariffLevel: 'N1'
+    }
+  ];
+
   const handleScheduled = date => {
     setIsScheduling(true);
     setScheduleErr('');
@@ -539,8 +1037,25 @@ function App() {
           <Container>
             <h3>Pick a Day and Time</h3>
 
+            {/* deliveryDate: "2021-09-23T08:00:00.000+02:00"
+            endHour: "12:00"
+            rank: ""
+            slotCode: ""
+            slotStatus: "O"
+            startHour: "08:00"
+            tariffLevel: "" */}
             <DayTimePicker
-              timeSlotSizeMinutes={15}
+              slots={slots}
+              timeSlotSizeMinutes={240}
+              value={{
+                deliveryDate: '2021-09-25T18:00:00.000+02:00',
+                endHour: '21',
+                rank: '1',
+                slotCode: '6212',
+                slotStatus: 'O',
+                startHour: '19',
+                tariffLevel: 'N1'
+              }}
               timeSlotValidator={timeSlotValidator}
             />
           </Container>
