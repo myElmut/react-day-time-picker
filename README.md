@@ -1,5 +1,7 @@
 # React Day Time picker
 
+🚨 ⚠️ Please do not download this package, it is for my personal use, you can download the original package here from [@mooncake-dev/react-day-time-picker](https://www.npmjs.com/package/@mooncake-dev/react-day-time-picker) 🚨 ⚠️
+
 A React component to help with scheduling a day and time.
 
 For documentation see the [website](https://react-day-time-picker.netlify.com/).
