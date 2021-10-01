@@ -1037,25 +1037,8 @@ function App() {
           <Container>
             <h3>Pick a Day and Time</h3>
 
-            {/* deliveryDate: "2021-09-23T08:00:00.000+02:00"
-            endHour: "12:00"
-            rank: ""
-            slotCode: ""
-            slotStatus: "O"
-            startHour: "08:00"
-            tariffLevel: "" */}
             <DayTimePicker
-              slots={slots}
-              timeSlotSizeMinutes={240}
-              value={{
-                deliveryDate: '2021-09-25T18:00:00.000+02:00',
-                endHour: '21',
-                rank: '1',
-                slotCode: '6212',
-                slotStatus: 'O',
-                startHour: '19',
-                tariffLevel: 'N1'
-              }}
+              timeSlotSizeMinutes={300}
               timeSlotValidator={timeSlotValidator}
             />
           </Container>

@@ -36,6 +36,8 @@ function generateTimeSlots(selectedDate, slotSizeMinutes) {
     }
   }
 
+  start = addHours(start, 3);
+
   const end = addDays(selectedDate, 1);
 
   let slot = start;
@@ -47,12 +49,10 @@ function generateTimeSlots(selectedDate, slotSizeMinutes) {
 
   timeSlots = timeSlots.map(slot => {
     const formatSlot = format(slot, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    // const timeZone = 'Europe/Berlin'
-    // const zonedDate = utcToZonedTime(date, timeZone)
     return {
       deliveryDate: formatSlot,
-      startHour: format(slot, 'HH:mm'),
-      endHour: format(addMinutes(slot, slotSizeMinutes), 'HH:mm'),
+      startHour: format(slot, 'H'),
+      endHour: format(addMinutes(slot, slotSizeMinutes), 'H'),
       rank: '',
       slotCode: '',
       slotStatus: 'O',

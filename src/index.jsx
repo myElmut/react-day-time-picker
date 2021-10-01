@@ -20,7 +20,7 @@ import { Success, Failed } from './Feedback';
 import Calendar from './calendar';
 import TimeSlots from './time-slots';
 
-import { preventPastDays } from './validators';
+import { preventPastDays, dayValidator } from './validators';
 
 function DayTimePicker({
   timeSlotValidator,
@@ -42,7 +42,6 @@ function DayTimePicker({
 
   useEffect(() => {
     if (value) {
-      //   /debugger
       handlePickTime(value);
     }
   }, []);
@@ -95,7 +94,6 @@ function DayTimePicker({
   const handleCloseConfirm = () => {
     setShowConfirm(false);
     handleClosePickTime();
-
   };
 
   return (
@@ -103,7 +101,7 @@ function DayTimePicker({
       <PopupWrapper>
         <Calendar
           slots={slots}
-          validator={preventPastDays}
+          validator={preventPastDays && dayValidator}
           pickDay={handlePickDay}
         />
 
@@ -144,9 +142,7 @@ function DayTimePicker({
 
               <p style={{ fontSize: '24px' }}>
                 <ClockIcon />{' '}
-                {pickedTime.slotCode
-                  ? `${pickedTime.startHour}:00 - ${pickedTime.endHour}:00`
-                  : `${pickedTime.startHour} - ${pickedTime.endHour}`}
+                {`${pickedTime.startHour}:00 - ${pickedTime.endHour}:00`}
               </p>
 
               {!isDone && pickedDay ? (

@@ -41,7 +41,7 @@ export function timeSlotValidator(slotTime) {
     slotDate.getFullYear(),
     slotDate.getMonth(),
     slotDate.getDate(),
-    12,
+    13,
     0,
     0
   );

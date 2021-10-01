@@ -31,24 +31,38 @@ function getClosestDayOfLastWeek(dayOfWeek, week, fromDate = new Date()) {
   const now = addDays(fromDate, offsetDays);
   return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
 }
-export function preventPastDays(slots, calendarDay) {
+
+export function preventPastDays(calendarDay) {
+  const now = new Date();
+  const today = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    0,
+    0,
+    0
+  );
+
+  const isValid = calendarDay.getTime() >= today.getTime();
+  return isValid;
+}
+export function dayValidator(slots, calendarDay) {
   let days = [
-    getClosestDayOfLastWeek('Thur', 0).getTime(),
     getClosestDayOfLastWeek('Thur', 7).getTime(),
     getClosestDayOfLastWeek('Thur', 14).getTime(),
+    getClosestDayOfLastWeek('Thur', 21).getTime(),
 
-    getClosestDayOfLastWeek('Fri', 0).getTime(),
     getClosestDayOfLastWeek('Fri', 7).getTime(),
     getClosestDayOfLastWeek('Fri', 14).getTime(),
+    getClosestDayOfLastWeek('Fri', 21).getTime(),
 
-    getClosestDayOfLastWeek('Sat', 0).getTime(),
     getClosestDayOfLastWeek('Sat', 7).getTime(),
-    getClosestDayOfLastWeek('Sat', 14).getTime()
+    getClosestDayOfLastWeek('Sat', 14).getTime(),
+    getClosestDayOfLastWeek('Sat', 21).getTime()
   ];
 
   if (slots) {
     const slotsDays = slots.reduce((acc, curr) => {
-
       const currDay = new Date(curr.deliveryDate);
       currDay.setHours(0, 0, 0, 0);
 
@@ -60,6 +74,7 @@ export function preventPastDays(slots, calendarDay) {
 
     days = [...[...days, ...Object.values(slotsDays)]];
   }
+
   const isValid = days.includes(calendarDay.getTime());
   return isValid;
 }

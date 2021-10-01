@@ -16,28 +16,18 @@ function Root({ pickedDay, slotSizeMinutes, validator, pickTime, slots }) {
   return (
     <List>
       {timeSlots.map(slot => {
-        const isValid = validator && slots.length == 0 ? validator(slot.deliveryDate) : true;
+        const isValid =
+          validator && slots.length == 0 ? validator(slot.deliveryDate) : true;
         return (
           <ListItem
             key={slot.slotCode ? slot.slotCode : slot.deliveryDate}
             isValid={isValid}
             onClick={() => isValid && pickTime(slot)}
           >
-            {slots && slots.length > 0 ? (
-              <>
-                <span>
-                  {`${slot.startHour}:00`} {' - '}
-                </span>
-                <span>{`${slot.endHour}:00`}</span>
-              </>
-            ) : (
-              <>
-                <span>
-                  {`${slot.startHour}`} {' - '}
-                </span>
-                <span>{`${slot.endHour}`}</span>
-              </>
-            )}
+            <span>
+              {`${slot.startHour}:00`} {' - '}
+            </span>
+            <span>{`${slot.endHour}:00`}</span>
           </ListItem>
         );
       })}
