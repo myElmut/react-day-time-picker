@@ -40,8 +40,16 @@ function DayTimePicker({
   const [daySlots, setDaySlots] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const dateInPast = (firstDate, secondDate) => {
+    if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
-    if (value) {
+    const today = new Date();
+    if (value && !dateInPast(new Date(value), today)) {
       handlePickTime(value);
     }
   }, []);
