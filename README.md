@@ -11,6 +11,20 @@ A React component to help with scheduling a day and time.
 npm start
 ```
 
+To create a new version after you made changes :
+
+Make sure:
+
+- You increment the npm version after you make code changes with `npm version`.
+- You're logged in.
+
+
+## Build before publish
+
+```
+npm run prepublishOnly
+```
+
 ## Publish
 
 For now we publish manually using:
@@ -18,10 +32,5 @@ For now we publish manually using:
 ```
 npm publish --access public
 ```
-
-Make sure:
-
-- You increment the npm version after you make code changes with `npm version`.
-- You're logged in.
 
 More information can be found [here](https://docs.npmjs.com/creating-and-publishing-an-org-scoped-package).
