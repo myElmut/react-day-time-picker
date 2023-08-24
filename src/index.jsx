@@ -14,16 +14,17 @@ import {
   PopupDone
 } from './Popup';
 import { ConfirmButton } from './Confirm';
-import { DayIcon, ClockIcon } from './Icons';
+import { DayIcon, ClockIcon, InfoIcon, ShipIcon, FailedIcon } from './Icons';
 import { Success, Failed } from './Feedback';
 
 import Calendar from './calendar';
 import TimeSlots from './time-slots';
 
-import { preventPastDays, dayValidator } from './validators';
+import { dayValidator } from './validators';
 
 function DayTimePicker({
   timeSlotValidator,
+  daySlotValidator,
   timeSlotSizeMinutes,
   value,
   isLoading,
@@ -32,6 +33,10 @@ function DayTimePicker({
   slots,
   onReset,
   doneText,
+  freeText,
+  feesText,
+  maxWeeks,
+  fromDate,
   theme
 }) {
   const [pickedDay, setPickedDay] = useState(null);
@@ -40,17 +45,11 @@ function DayTimePicker({
   const [daySlots, setDaySlots] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const dateInPast = (firstDate, secondDate) => {
-    if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
-      return true;
-    }
-    return false;
-  };
-
   useEffect(() => {
-    const today = new Date();
-    if (value && !dateInPast(new Date(value), today)) {
-      handlePickTime(value);
+    if (daySlotValidator) {
+      if (value && daySlotValidator(value.deliveryDate)) {
+        handlePickTime(value);
+      }
     }
   }, []);
 
@@ -62,7 +61,7 @@ function DayTimePicker({
 
   const prepareDaySlots = (day, slots) => {
     if (slots) {
-      const filterSlots = slots.filter(function(slot) {
+      const filterSlots = slots.filter(slot => {
         return new Date(slot.deliveryDate).getDate() === day.getDate();
       });
       filterSlots.sort(
@@ -109,8 +108,11 @@ function DayTimePicker({
       <PopupWrapper>
         <Calendar
           slots={slots}
-          validator={preventPastDays && dayValidator}
+          daySlots={daySlots}
+          validator={dayValidator}
           pickDay={handlePickDay}
+          maxWeeks={maxWeeks}
+          fromDate={fromDate}
         />
 
         {showPickTime && (
@@ -132,6 +134,8 @@ function DayTimePicker({
               pickedDay={pickedDay}
               slotSizeMinutes={timeSlotSizeMinutes}
               slots={daySlots}
+              freeText={freeText}
+              feesText={feesText}
               validator={timeSlotValidator}
               pickTime={handlePickTime}
             />
@@ -141,16 +145,24 @@ function DayTimePicker({
         {showConfirm && (
           <PopupDone>
             <PopupHeader>
-              <p style={{ fontSize: '20px' }}>
+              <p style={{ fontSize: '18px', margin: '8px 0 0 0' }}>
                 <DayIcon />{' '}
                 {format(parseISO(pickedTime.deliveryDate), 'dd MMMM yyyy', {
                   locale: fr
                 })}
               </p>
 
-              <p style={{ fontSize: '24px' }}>
+              <p style={{ fontSize: '24px', margin: '8px 0 0 0' }}>
                 <ClockIcon />{' '}
                 {`${pickedTime.startHour}:00 - ${pickedTime.endHour}:00`}
+              </p>
+              <p style={{ fontSize: '18px', margin: '8px 0 0 0' }}>
+                <ShipIcon />{' '}
+                {pickedTime.slotCode ? (
+                  <span>{feesText}</span>
+                ) : (
+                  <span>Livraison offerte</span>
+                )}
               </p>
 
               {!isDone && pickedDay ? (
@@ -185,6 +197,9 @@ function DayTimePicker({
 
 DayTimePicker.propTypes = {
   timeSlotValidator: PropTypes.func,
+  daySlotValidator: PropTypes.func,
+  maxWeeks: PropTypes.number,
+  fromDate: PropTypes.string,
   timeSlotSizeMinutes: PropTypes.number.isRequired,
   isLoading: PropTypes.bool,
   isDone: PropTypes.bool,
@@ -202,6 +217,9 @@ DayTimePicker.propTypes = {
   onReset: PropTypes.func,
   slots: PropTypes.array,
   doneText: PropTypes.string,
+  cautionText: PropTypes.string,
+  freeText: PropTypes.string,
+  feesText: PropTypes.string,
   theme: PropTypes.shape({
     primary: PropTypes.string,
     secondary: PropTypes.string,
@@ -224,13 +242,19 @@ DayTimePicker.propTypes = {
 };
 
 DayTimePicker.defaultProps = {
+  maxWeeks: 21,
+  fromDate: '',
   confirmText: 'Confirmer',
   loadingText: 'En cours..',
   doneText:
     'sera votre jour de livraison habituel. Vous pouvez le modifier maintenant ou à tout moment après votre commande',
+  cautionText:
+    'Attention, entre le Jeudi 8 décembre et le Samedi 24 décembre, les colis en livraison gratuite (entre 8h et 13h) seront exceptionnellement livrés entre 8h et 18h. Vous recevrez un email en amont de la livraison qui vous indiquera un créneau plus précis.',
+  freeText: 'Offert',
+  feesText: '+4,95€ / Livraison',
   theme: {
-    primary: '#274E84',
-    secondary: '#FF9656',
+    primary: '#C15265',
+    secondary: '#681A36',
     background: '#fff',
     buttons: {
       disabled: {
@@ -248,7 +272,7 @@ DayTimePicker.defaultProps = {
     },
     feedback: {
       success: {
-        color: '#86CB92'
+        color: '#22C55E'
       },
       failed: {
         color: '#eb7260'

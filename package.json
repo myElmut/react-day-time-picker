@@ -1,6 +1,6 @@
 {
     "name": "@mzane42/react-day-time-picker",
-    "version": "1.4.0",
+    "version": "2.0.0",
     "description": "A React component to help with scheduling a day and time.",
     "scripts": {
         "test": "jest",
@@ -25,7 +25,7 @@
         "day-time-picker",
         "scheduling"
     ],
-    "author": "Daniël Illouz <daniel.illouz@me.com> (https://www.danillouz.dev/)",
+    "author": "Anis Zane <anismzane@gmail.com>",
     "contributors": [
         "Daniël Illouz <daniel.illouz@me.com>",
         "Dinos Theodorou <dinostheo@gmail.com>",
@@ -60,6 +60,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.3",
         "@fortawesome/react-fontawesome": "^0.1.14",
         "@material-ui/icons": "^4.11.2",
+        "@tippyjs/react": "^4.2.6",
         "date-fns": "^2.24.0",
         "prism-react-renderer": "^0.1.6",
         "prop-types": "^15.7.2",

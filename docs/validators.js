@@ -6,23 +6,45 @@
  *
  * @return {Boolan} If the time slot is valid or not.
 //  */
-// export function timeSlotValidator(slotTime, slots) {
-//     // console.log('slots', slots);
-//     if (!slotTime) {
-//         return false;
-//     }
-//   const eveningTime = new Date(
-//     slotTime.getFullYear(),
-//     slotTime.getMonth(),
-//     slotTime.getDate(),
-//     18,
-//     0,
-//     0
-//   );
 
-//   const isValid = slotTime.getTime() > eveningTime.getTime();
-//   return isValid;
-// }
+import { getISODay, addDays } from 'date-fns';
+
+// follow the getISODay format (7 for Sunday, 1 for Monday)
+const dayOfWeekMap = {
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thur: 4,
+  Fri: 5,
+  Sat: 6,
+  Sun: 7
+};
+
+function getClosestDayOfLastWeek(dayOfWeek, week, fromDate = new Date()) {
+  // -7 means last week
+  // dayOfWeekMap[dayOfWeek] get the ISODay for the desired dayOfWeek
+
+  // e.g. If today is Sunday, getISODay(fromDate) will returns 7
+  // if the day we want to find is Thursday(4), apart from subtracting one week(-7),
+  // we also need to account for the days between Sunday(7) and Thursday(4)
+  // Hence we need to also subtract (getISODay(fromDate) - dayOfWeekMap[dayOfWeek])
+  const offsetDays = week - (getISODay(fromDate) - dayOfWeekMap[dayOfWeek]);
+
+  const now = addDays(fromDate, offsetDays);
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+}
+
+export function daySlotValidator(slotDay) {
+  if (!slotDay) {
+    return false;
+  }
+  const nextThur = getClosestDayOfLastWeek('Thur', 7);
+
+  const slotDate = new Date(slotDay);
+  const isValid =
+    slotDate.setHours(0, 0, 0, 0) >= nextThur.setHours(0, 0, 0, 0);
+  return isValid;
+}
 
 export function timeSlotValidator(slotTime) {
   if (!slotTime) {

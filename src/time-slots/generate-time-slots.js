@@ -36,7 +36,7 @@ function generateTimeSlots(selectedDate, slotSizeMinutes) {
     }
   }
 
-  start = addHours(start, 3);
+  start = addHours(start, 8);
 
   const end = addDays(selectedDate, 1);
 

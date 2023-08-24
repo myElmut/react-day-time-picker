@@ -1,11 +1,11 @@
 const theme = {
   primary: 'gold',
-  secondary: '#274e84',
+  secondary: '#C15265',
   background: '#111', // This should match the container background
   buttons: {
     disabled: {
       color: '#333',
-      background: '#274e84'
+      background: '#C15265'
     },
     confirm: {
       color: '#fff',
@@ -18,7 +18,7 @@ const theme = {
   },
   feedback: {
     success: {
-      color: '#86CB92'
+      color: '#22C55E'
     },
     failed: {
       color: '#ef4444'
