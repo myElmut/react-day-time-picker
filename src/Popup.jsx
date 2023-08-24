@@ -20,6 +20,7 @@ export const Popup = styled.div`
   margin: auto;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   z-index: 3;
   background-color: ${props => props.theme.background};
   font-size: 1.1em;
@@ -53,7 +54,11 @@ export const PopupDone = styled.div`
 `;
 
 export const PopupHeader = styled.header`
-  padding: 1em 0;
+  padding: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const PopupClose = styled.button`

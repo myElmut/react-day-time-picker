@@ -18,19 +18,8 @@ import { TableWrapper, Table, TH, TD } from './components/Table';
 import { Container, DarkContainer } from './components/Container';
 
 import { fakeRequest } from './request';
-import { timeSlotValidator } from './validators';
+import { timeSlotValidator, daySlotValidator } from './validators';
 import theme from './theme';
-
-import {
-  codeExample1,
-  codeExample2,
-  codeExample3,
-  codeExample4,
-  codeExample5,
-  codeExample6,
-  codeExample7,
-  codeExample8
-} from './code-examples';
 
 import DayTimePicker from '../src';
 
@@ -41,499 +30,292 @@ function App() {
 
   const slots = [
     {
-      slotCode: '6212',
-      slotStatus: 'O',
-      deliveryDate: '2021-09-25T18:00:00.000+02:00',
-      startHour: '19',
-      endHour: '21',
-      rank: '1',
-      tariffLevel: 'N1'
-    },
-    {
       slotCode: '4212',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T19:00:00.000+02:00',
       startHour: '19',
       endHour: '21',
-      rank: '35',
+      rank: '88',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4213',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T20:00:00.000+02:00',
       startHour: '20',
       endHour: '22',
-      rank: '36',
+      rank: '89',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4202',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T09:00:00.000+02:00',
       startHour: '9',
       endHour: '11',
-      rank: '37',
+      rank: '90',
       tariffLevel: 'N3'
     },
     {
       slotCode: '4203',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T10:00:00.000+02:00',
       startHour: '10',
       endHour: '12',
-      rank: '38',
+      rank: '91',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4204',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T11:00:00.000+02:00',
       startHour: '11',
       endHour: '13',
-      rank: '39',
+      rank: '92',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4205',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T12:00:00.000+02:00',
       startHour: '12',
       endHour: '14',
-      rank: '40',
+      rank: '93',
       tariffLevel: 'N2'
     },
     {
       slotCode: '4206',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T13:00:00.000+02:00',
       startHour: '13',
       endHour: '15',
-      rank: '41',
+      rank: '94',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4207',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T14:00:00.000+02:00',
       startHour: '14',
       endHour: '16',
-      rank: '42',
+      rank: '95',
       tariffLevel: 'N1'
     },
     {
       slotCode: '4208',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T15:00:00.000+02:00',
       startHour: '15',
       endHour: '17',
-      rank: '43',
+      rank: '96',
       tariffLevel: 'N4'
     },
     {
       slotCode: '4209',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
+      deliveryDate: '2022-12-31T16:00:00.000+02:00',
       startHour: '16',
-      endHour: '18',
-      rank: '44',
+      endHour: '13',
+      rank: '97',
       tariffLevel: 'N3'
     },
     {
       slotCode: '4211',
       slotStatus: 'O',
-      deliveryDate: '2021-09-30T18:00:00.000+02:00',
-      startHour: '18',
+      deliveryDate: '2022-12-31T18:00:00.000+02:00',
+      startHour: '13',
       endHour: '20',
-      rank: '45',
+      rank: '98',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5212',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T19:00:00.000+02:00',
       startHour: '19',
       endHour: '21',
-      rank: '46',
+      rank: '99',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5213',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T20:00:00.000+02:00',
       startHour: '20',
       endHour: '22',
-      rank: '47',
+      rank: '100',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5202',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T09:00:00.000+02:00',
       startHour: '9',
       endHour: '11',
-      rank: '48',
+      rank: '101',
       tariffLevel: 'N3'
     },
     {
       slotCode: '5203',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T10:00:00.000+02:00',
       startHour: '10',
       endHour: '12',
-      rank: '49',
+      rank: '102',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5204',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T11:00:00.000+02:00',
       startHour: '11',
       endHour: '13',
-      rank: '50',
+      rank: '103',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5205',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T12:00:00.000+02:00',
       startHour: '12',
       endHour: '14',
-      rank: '51',
+      rank: '104',
       tariffLevel: 'N2'
     },
     {
       slotCode: '5206',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T13:00:00.000+02:00',
       startHour: '13',
       endHour: '15',
-      rank: '52',
+      rank: '105',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5207',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T14:00:00.000+02:00',
       startHour: '14',
       endHour: '16',
-      rank: '53',
+      rank: '106',
       tariffLevel: 'N2'
     },
     {
       slotCode: '5208',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T15:00:00.000+02:00',
       startHour: '15',
       endHour: '17',
-      rank: '54',
+      rank: '107',
       tariffLevel: 'N1'
     },
     {
       slotCode: '5209',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
+      deliveryDate: '2022-12-01T16:00:00.000+02:00',
       startHour: '16',
-      endHour: '18',
-      rank: '55',
+      endHour: '13',
+      rank: '108',
       tariffLevel: 'N3'
     },
     {
       slotCode: '5211',
       slotStatus: 'O',
-      deliveryDate: '2021-10-01T18:00:00.000+02:00',
-      startHour: '18',
+      deliveryDate: '2022-12-01T18:00:00.000+02:00',
+      startHour: '13',
       endHour: '20',
-      rank: '56',
+      rank: '109',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6206',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T13:00:00.000+02:00',
       startHour: '13',
       endHour: '15',
-      rank: '57',
+      rank: '110',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6207',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T14:00:00.000+02:00',
       startHour: '14',
       endHour: '16',
-      rank: '58',
+      rank: '111',
       tariffLevel: 'N3'
     },
     {
       slotCode: '6208',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T15:00:00.000+02:00',
       startHour: '15',
       endHour: '17',
-      rank: '59',
+      rank: '112',
       tariffLevel: 'N2'
     },
     {
       slotCode: '6209',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T16:00:00.000+02:00',
       startHour: '16',
-      endHour: '18',
-      rank: '60',
+      endHour: '13',
+      rank: '113',
       tariffLevel: 'N4'
     },
     {
       slotCode: '6211',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
-      startHour: '18',
+      deliveryDate: '2022-12-02T18:00:00.000+02:00',
+      startHour: '13',
       endHour: '20',
-      rank: '61',
+      rank: '114',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6212',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T19:00:00.000+02:00',
       startHour: '19',
       endHour: '21',
-      rank: '62',
+      rank: '115',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6202',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T09:00:00.000+02:00',
       startHour: '9',
       endHour: '11',
-      rank: '63',
+      rank: '116',
       tariffLevel: 'N4'
     },
     {
       slotCode: '6203',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T10:00:00.000+02:00',
       startHour: '10',
       endHour: '12',
-      rank: '64',
+      rank: '117',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6204',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T11:00:00.000+02:00',
       startHour: '11',
       endHour: '13',
-      rank: '65',
+      rank: '118',
       tariffLevel: 'N1'
     },
     {
       slotCode: '6205',
       slotStatus: 'O',
-      deliveryDate: '2021-10-02T18:00:00.000+02:00',
+      deliveryDate: '2022-12-02T12:00:00.000+02:00',
       startHour: '12',
       endHour: '14',
-      rank: '66',
-      tariffLevel: 'N2'
-    },
-    {
-      slotCode: '4212',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '19',
-      endHour: '21',
-      rank: '100',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4213',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '20',
-      endHour: '22',
-      rank: '101',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4202',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '9',
-      endHour: '11',
-      rank: '102',
-      tariffLevel: 'N3'
-    },
-    {
-      slotCode: '4203',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '10',
-      endHour: '12',
-      rank: '103',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4204',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '11',
-      endHour: '13',
-      rank: '104',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4205',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '12',
-      endHour: '14',
-      rank: '105',
-      tariffLevel: 'N2'
-    },
-    {
-      slotCode: '4206',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '13',
-      endHour: '15',
-      rank: '106',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4207',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '14',
-      endHour: '16',
-      rank: '107',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '4208',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '15',
-      endHour: '17',
-      rank: '108',
-      tariffLevel: 'N4'
-    },
-    {
-      slotCode: '4209',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '16',
-      endHour: '18',
-      rank: '109',
-      tariffLevel: 'N3'
-    },
-    {
-      slotCode: '4211',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-07T18:00:00.000+02:00',
-      startHour: '18',
-      endHour: '20',
-      rank: '110',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5212',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '19',
-      endHour: '21',
-      rank: '111',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5213',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '20',
-      endHour: '22',
-      rank: '112',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5202',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '9',
-      endHour: '11',
-      rank: '113',
-      tariffLevel: 'N3'
-    },
-    {
-      slotCode: '5203',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '10',
-      endHour: '12',
-      rank: '114',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5204',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '11',
-      endHour: '13',
-      rank: '115',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5205',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '12',
-      endHour: '14',
-      rank: '116',
-      tariffLevel: 'N2'
-    },
-    {
-      slotCode: '5206',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '13',
-      endHour: '15',
-      rank: '117',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5207',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '14',
-      endHour: '16',
-      rank: '118',
-      tariffLevel: 'N2'
-    },
-    {
-      slotCode: '5208',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '15',
-      endHour: '17',
       rank: '119',
-      tariffLevel: 'N1'
-    },
-    {
-      slotCode: '5209',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '16',
-      endHour: '18',
-      rank: '120',
-      tariffLevel: 'N3'
-    },
-    {
-      slotCode: '5211',
-      slotStatus: 'O',
-      deliveryDate: '2021-10-08T18:00:00.000+02:00',
-      startHour: '18',
-      endHour: '20',
-      rank: '121',
-      tariffLevel: 'N1'
+      tariffLevel: 'N2'
     }
   ];
 
@@ -781,6 +563,15 @@ function App() {
                 <TD>Your event has been scheduled!</TD>
                 <TD alignLeft>Custom text to show when scheduling is done.</TD>
               </tr>
+              <tr>
+                <TD alignLeft>
+                  <InlineCode>cautionText</InlineCode>
+                </TD>
+                <TD>String</TD>
+                <TD>No</TD>
+                <TD>Your event has been scheduled!</TD>
+                <TD alignLeft>Custom text to show when scheduling is done.</TD>
+              </tr>
 
               <tr>
                 <TD alignLeft>
@@ -824,15 +615,13 @@ function App() {
           <InlineCode>timeSlotSizeMinutes</InlineCode> prop:
         </p>
 
-        <CodeBlock codeString={codeExample1} lang="jsx" />
-
         <p>
           This will render a basic calendar, where a day and time can be picked
           by the user:
         </p>
 
         <Interactive>
-          <DayTimePicker timeSlotSizeMinutes={60} />
+          <DayTimePicker maxWeeks={21} timeSlotSizeMinutes={60} />
 
           <Caption>
             Go ahead and click around, but it&apos;s a semi-functional
@@ -855,13 +644,11 @@ function App() {
           additional information next to it (like a header):
         </p>
 
-        <CodeBlock codeString={codeExample2} lang="jsx" />
-
         <Interactive>
           <Container>
             <h3>Pick a Day and Time</h3>
 
-            <DayTimePicker timeSlotSizeMinutes={15} />
+            <DayTimePicker maxWeeks={21} timeSlotSizeMinutes={15} />
           </Container>
         </Interactive>
 
@@ -933,8 +720,6 @@ function App() {
           store.
         </p>
 
-        <CodeBlock codeString={codeExample3} lang="jsx" />
-
         <SubTitle level={2}>Showing scheduling feedback</SubTitle>
 
         <p>
@@ -963,13 +748,9 @@ function App() {
           </li>
         </ul>
 
-        <CodeBlock codeString={codeExample4} lang="jsx" />
-
         <p>
           You can simulate making an HTTP request with a function like this:
         </p>
-
-        <CodeBlock codeString={codeExample5} lang="js" />
 
         <p>
           You can then call it from the <InlineCode>onConfirm</InlineCode>{' '}
@@ -977,13 +758,12 @@ function App() {
           stage in the scheduling process:
         </p>
 
-        <CodeBlock codeString={codeExample6} lang="jsx" />
-
         <Interactive>
           <Container>
             <h3>Pick a Day and Time</h3>
 
             <DayTimePicker
+              maxWeeks={21}
               timeSlotSizeMinutes={15}
               isLoading={isScheduling}
               isDone={isScheduled}
@@ -1031,14 +811,16 @@ function App() {
           in the evening, you can provide:
         </p>
 
-        <CodeBlock codeString={codeExample7} lang="jsx" />
-
         <Interactive>
           <Container>
-            <h3>Pick a Day and Time</h3>
+            <h3>Pick a Day and Time ELMUT</h3>
 
             <DayTimePicker
+              maxWeeks={82}
+              fromDate={'2022-05-28T06:00:00.000Z'}
               timeSlotSizeMinutes={300}
+              slots={slots}
+              daySlotValidator={daySlotValidator}
               timeSlotValidator={timeSlotValidator}
             />
           </Container>
@@ -1196,13 +978,15 @@ function App() {
           For example, to use a dark theme, provide the following theme Object:
         </p>
 
-        <CodeBlock codeString={codeExample8} lang="jsx" />
-
         <Interactive>
           <DarkContainer>
             <h3>Pick a Day and Time</h3>
 
-            <DayTimePicker timeSlotSizeMinutes={15} theme={theme} />
+            <DayTimePicker
+              maxWeeks={21}
+              timeSlotSizeMinutes={15}
+              theme={theme}
+            />
           </DarkContainer>
 
           <Caption>

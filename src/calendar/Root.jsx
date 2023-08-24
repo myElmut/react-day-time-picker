@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
     addMonths,
@@ -7,6 +7,7 @@ import {
     isSameMonth,
     format,
     isToday,
+    isAfter
 } from 'date-fns';
 import fr from 'date-fns/locale/fr';
 
@@ -34,7 +35,10 @@ import { Calendar, FakeCalendar } from './Calendar';
 
 import generateDays from './generate-days';
 
-function Root({ slots, validator, pickDay }) {
+import Tippy from '@tippyjs/react';
+
+function Root({ slots, validator, pickDay, maxWeeks, fromDate }) {
+
   const [month, setMonth] = useState(new Date());
   const [fakeMonth, setFakeMonth] = useState(month);
   const [animation, setAnimation] = useState('');
@@ -82,6 +86,23 @@ function Root({ slots, validator, pickDay }) {
     pickDay(day);
   };
 
+  useEffect(() => {
+    //if there is not a day available in this month switch to the next
+    const isAvailableDays = days.some((day) => {
+        const sameMonth = isSameMonth(day, startDay);
+        if (sameMonth) {
+            return validator ? validator(slots, day, maxWeeks, fromDate) : true
+        }
+        return false;
+        
+    })
+    if (!isAvailableDays) {
+        handleNextMonth()
+    }
+  }, [])
+
+  const disclaimer = "Ce jour de livraison ne peut pas être sélectionné en ligne. Contactez notre service client à ouaf@elmut.fr, nous nous ferons une joie de trouver une solution qui vous convienne"
+
   return (
     <Grid>
       <MonthYear>
@@ -123,16 +144,19 @@ function Root({ slots, validator, pickDay }) {
 
               const formatted = format(day, 'd');
               const today = isToday(day);
-              const isValid = validator ? validator(slots, day) : true;
+              const isValid = validator ? validator(slots, day, maxWeeks, fromDate) : true;
+              const afterToday = isAfter(day, new Date()) && !isValid
               return (
-                <MonthDay
-                  key={day}
-                  isValid={isValid}
-                  isToday={today}
-                  onClick={() => isValid && handlePickDay(day)}
-                >
-                  {formatted}
-                </MonthDay>
+                <Tippy key={day} content={disclaimer} trigger='click' onShow={()=> !!afterToday}>
+                    <MonthDay
+                        isValid={isValid}
+                        isToday={today}
+                        afterToday={afterToday}
+                        onClick={() => isValid && handlePickDay(day)}
+                        >    
+                        {formatted}
+                    </MonthDay>
+                </Tippy>
               );
             })}
           </MonthDays>
@@ -156,15 +180,17 @@ function Root({ slots, validator, pickDay }) {
                 const formatted = format(fakeDay, 'd');
                 const today = isToday(fakeDay);
                 const isValid = validator ? validator(slots, fakeDay) : true;
+                const afterToday = isAfter(fakeDay, new Date()) && !isValid
+
                 return (
-                  <MonthDay
-                    key={fakeDay}
-                    disabled={!sameMonth}
-                    isValid={isValid}
-                    isToday={today}
-                  >
-                    {formatted}
-                  </MonthDay>
+                    <MonthDay
+                        key={fakeDay}
+                        disabled={!sameMonth}
+                        isValid={isValid}
+                        isToday={today}
+                        afterToday={afterToday}>
+                        {formatted}
+                    </MonthDay>
                 );
               })}
             </MonthDays>
@@ -178,7 +204,9 @@ function Root({ slots, validator, pickDay }) {
 Root.propTypes = {
   validator: PropTypes.func,
   pickDay: PropTypes.func.isRequired,
-  slots: PropTypes.array
+  slots: PropTypes.array,
+  maxWeeks: PropTypes.number,
+  fromDate: PropTypes.string,
 };
 
 export default Root;

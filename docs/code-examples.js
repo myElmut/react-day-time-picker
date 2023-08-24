@@ -111,7 +111,7 @@ export const codeExample7 = `function timeSlotValidator(slotTime) {
     slotTime.getFullYear(),
     slotTime.getMonth(),
     slotTime.getDate(),
-    18,
+    13,
     0,
     0
   );
