@@ -8,9 +8,15 @@
         "lint": "eslint 'src/**/*.{js,jsx}'",
         "lint:format": "npm run lint -- --fix",
         "start": "rimraf .cache dev && parcel docs/index.html --out-dir dev",
+        "commit": "cz",
         "build-docs": "parcel build docs/index.html",
         "build-lib": "babel src --out-dir lib",
         "prepublishOnly": "npm run build-lib"
+    },
+    "config": {
+        "commitizen": {
+          "path": "./node_modules/cz-conventional-changelog"
+        }
     },
     "main": "lib/index.js",
     "files": [
@@ -41,12 +47,17 @@
         "@babel/core": "^7.4.5",
         "@babel/preset-env": "^7.4.5",
         "@babel/preset-react": "^7.0.0",
+        "@commitlint/cli": "^17.7.1",
+        "@commitlint/config-conventional": "^17.7.0",
         "babel-jest": "^24.8.0",
+        "commitizen": "^4.3.0",
+        "cz-conventional-changelog": "^3.3.0",
         "eslint": "^5.16.0",
         "eslint-config-prettier": "^4.3.0",
         "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-react": "^7.13.0",
         "eslint-plugin-react-hooks": "^1.6.0",
+        "husky": "^8.0.3",
         "jest": "^24.8.0",
         "parcel-bundler": "^1.12.4",
         "prettier": "^1.17.1",
