@@ -2,8 +2,7 @@
 
 This repos is a day time picker component for elmut, the original package here from [@mooncake-dev/react-day-time-picker](https://www.npmjs.com/package/@mooncake-dev/react-day-time-picker)
 
-A React component to help with scheduling a day and time.
-
+A React component to help with scheduling a day and time
 
 ## Running Locally
 
