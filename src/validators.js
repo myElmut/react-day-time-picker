@@ -60,22 +60,34 @@ export function preventPastDays(calendarDay) {
   return isValid;
 }
 
-export function exceptHoliday(calendarDay) {
+function getHolidays(year) {
   const days = [
-    new Date('01/01/2023').getTime(),
-    new Date('04/13/2023').getTime(),
-    new Date('05/01/2023').getTime(),
-    new Date('05/8/2023').getTime(),
-    new Date('05/26/2023').getTime(),
-    new Date('06/06/2023').getTime(),
-    new Date('07/14/2023').getTime(),
-    new Date('08/15/2023').getTime(),
-    new Date('11/01/2023').getTime(),
-    new Date('11/11/2023').getTime(),
-    new Date('12/25/2023').getTime()
+    new Date(`01/01/${year}`).getTime(),
+    new Date(`04/13/${year}`).getTime(),
+    new Date(`05/01/${year}`).getTime(),
+    new Date(`05/8/${year}`).getTime(),
+    new Date(`05/26/${year}`).getTime(),
+    new Date(`06/06/${year}`).getTime(),
+    new Date(`07/14/${year}`).getTime(),
+    new Date(`08/15/${year}`).getTime(),
+    new Date(`11/01/${year}`).getTime(),
+    new Date(`11/11/${year}`).getTime(),
+    new Date(`12/25/${year}`).getTime()
   ];
+  return days;
+}
 
-  const isHoliday = days.includes(calendarDay.getTime());
+export function exceptHoliday(calendarDay) {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const nextYear = today.getFullYear() + 1;
+
+  const days = [currentYear, nextYear].map(year => {
+    return getHolidays(year);
+  });
+
+  const isHoliday = days.flat().includes(calendarDay.getTime());
+
   return isHoliday;
 }
 
