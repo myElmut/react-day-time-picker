@@ -22,6 +22,8 @@ import { timeSlotValidator, daySlotValidator } from './validators';
 import theme from './theme';
 
 import DayTimePicker from '../src';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
 
 function App() {
   const [isScheduling, setIsScheduling] = useState(false);
@@ -341,16 +343,16 @@ function App() {
     <Main>
       <Article>
         <Header>
-          <Title>React Day Time Picker</Title>
+          <Title>Elmut Day Time Picker</Title>
 
           <ByLine>
-            View on{' '}
+            for from {' '}
             <a
               href="https://github.com/mooncake-dev/react-day-time-picker"
               target="_blank"
               rel="noopener noreferrer"
             >
-              GitHub
+              GitHub react-day-time-picker
             </a>
           </ByLine>
         </Header>
@@ -416,7 +418,7 @@ function App() {
         <SubTitle>Installation</SubTitle>
 
         <CodeBlock
-          codeString="npm i @mooncake-dev/react-day-time-picker"
+          codeString="npm i @mzane42/react-day-time-picker"
           lang="shell"
         />
 
@@ -997,13 +999,13 @@ function App() {
       </Article>
 
       <Footer>
-        Built with 💚 by{' '}
+        Built with 💜 by{' '}
         <a
-          href="https://github.com/mooncake-dev"
+          href="https://github.com/mzane42"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mooncake
+          Anis Zane
         </a>
       </Footer>
     </Main>
