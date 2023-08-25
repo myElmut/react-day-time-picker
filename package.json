@@ -1,5 +1,5 @@
 {
-    "name": "@mzane42/react-day-time-picker",
+    "name": "@myelmut/react-day-time-picker",
     "version": "2.0.0",
     "description": "A React component to help with scheduling a day and time.",
     "scripts": {
@@ -24,7 +24,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mzane42/react-day-time-picker.git"
+        "url": "git+https://github.com/myElmut/react-day-time-picker.git"
     },
     "keywords": [
         "react",
@@ -39,9 +39,9 @@
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/mooncake-dev/react-day-time-picker/issues"
+        "url": "https://github.com/myElmut/react-day-time-picker/issues"
     },
-    "homepage": "https://github.com/mooncake-dev/react-day-time-picker#readme",
+    "homepage": "https://github.com/myElmut/react-day-time-picker#readme",
     "devDependencies": {
         "@babel/cli": "^7.4.4",
         "@babel/core": "^7.4.5",
